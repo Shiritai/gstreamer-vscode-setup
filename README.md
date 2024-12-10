@@ -10,6 +10,8 @@ This is the instruction to setup your vscode like...
 
 Please follow the [installation manual](https://gstreamer.freedesktop.org/documentation/installing/index.html?gi-language=c) for your platform.
 
+#### Debian based linux
+
 On debian based Linux, install gstreamer with
 
 ```bash
@@ -34,9 +36,25 @@ and should see something like
 
 which concludes the include paths and linking libraries during the gstreamer plugins compilation.
 
+#### macOS
+
+First download [two packages](https://gstreamer.freedesktop.org/download/#macos) and install them.
+
+And install `pkg-config`. With `brew`, the installation command is
+
+```bash
+brew install pkgconfig
+```
+
 ### Install cmake
 
 Please download and install [cmake](https://cmake.org/download/).
+
+On macOS with brew, install with
+
+```bash
+brew install cmake
+```
 
 ## Setup VSCode
 
@@ -68,6 +86,12 @@ To begin with, please create the `CMakeLists.txt` file for cmake to generate hel
 cmake_minimum_required(VERSION 3.10)
 project(<PROJECT>)
 
+if(APPLE)
+    message(STATUS "Configuring for macOS")
+    set(PKG_CONFIG_PATH /Library/Frameworks/GStreamer.framework/Versions/1.0/lib/pkgconfig)
+    set(PATH /Library/Frameworks/GStreamer.framework/Versions/1.0/bin:$PATH)
+endif()
+
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(GST REQUIRED gstreamer-1.0)
 
@@ -79,7 +103,7 @@ target_compile_options(<EXEC> PRIVATE ${GST_CFLAGS_OTHER})
 
 After that, you can build the project using VSCode Cmake extension by open vscode prompt (`Ctrl + Shift + P` and type `cmake build`). This process will be conducted automatically every time you open a Cmake project as VSCode working directory.
 
-### Setup Clangd
+### (Optional) Setup Clangd
 
 To setup `clangd` in your workspace, please add the `.clangd` file with the following content.
 
