@@ -21,5 +21,6 @@ add_executable(hello hello.cpp)
 # If is to produce library
 # add_library(hello SHARED hello.cpp)
 target_include_directories(hello PRIVATE ${GST_INCLUDE_DIRS})
-target_link_libraries(hello PRIVATE ${GST_LIBRARIES})
+target_link_libraries(hello PRIVATE ${GST_LINK_LIBRARIES})
+# target_link_libraries(hello PRIVATE ${GST_LIBRARIES})
 target_compile_options(hello PRIVATE ${GST_CFLAGS_OTHER})

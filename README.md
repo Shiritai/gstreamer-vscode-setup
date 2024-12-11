@@ -97,7 +97,7 @@ pkg_check_modules(GST REQUIRED gstreamer-1.0)
 
 add_executable(<EXEC> <MAIN.cpp>)
 target_include_directories(<EXEC> PRIVATE ${GST_INCLUDE_DIRS})
-target_link_libraries(<EXEC> PRIVATE ${GST_LIBRARIES})
+target_link_libraries(<EXEC> PRIVATE ${GST_LINK_LIBRARIES})
 target_compile_options(<EXEC> PRIVATE ${GST_CFLAGS_OTHER})
 ```
 
